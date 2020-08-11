@@ -1,0 +1,6 @@
+- name: Playbook to install elastic 
+  hosts: elastic
+  become: yes
+  become_user: root 
+  roles:
+    - elastic-ansible

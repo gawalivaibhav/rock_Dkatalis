@@ -1,0 +1,41 @@
+---
+# tasks file for elastic-ansible
+
+      - name: add apt repo key
+        apt_key:
+          url: https://artifacts.elastic.co/GPG-KEY-elasticsearch
+          state: present
+
+      - name: install elastic apt repo
+        apt_repository:
+          repo: deb https://artifacts.elastic.co/packages/7.x/apt stable main
+          state: present
+          filename: elastic-7.x.list
+          update_cache: yes
+      - name: install java
+        apt:
+          name: openjdk-8-jre
+          state: present
+          update_cache: yes
+
+      - name: install elasticsearch
+        apt:
+          name: elasticsearch
+          state: present
+          update_cache: yes
+          
+      - name: copy elastic config file
+        template:
+          src: database.j2
+          dest: /etc/elasticsearch/elasticsearch.yml
+
+      - name: reload systemd
+        systemd: daemon_reload=yes 
+
+      - name: enable service elasticsearch
+        systemd:
+          name: elasticsearch
+          enabled: yes
+
+      - name: check elasticsearch is running
+        systemd: state=started name=elasticsearch
