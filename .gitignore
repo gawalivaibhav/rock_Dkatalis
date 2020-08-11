@@ -1,3 +1,5 @@
+terraform-inventory_v0.8_linux_amd64.zip
+terraform.py
 .terraform
 *.tfstate*
 terraform.tfvars

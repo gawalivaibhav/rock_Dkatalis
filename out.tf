@@ -10,6 +10,6 @@ output "vpn_access_server_dns" {
 
 output "elastic_instance_ip" {
     description = " the IP of  Elstic instance"
-    value = [aws_instance.elastic_Instance.*.public_ip]
+    value = [aws_instance.elastic_Instance.private_ip]
 }
 
